@@ -2,10 +2,89 @@
 //
 
 #include <iostream>
-
+#include <list>
+#include <algorithm>
+#include <string>
+using namespace std;
+class User{
+private: 
+    int user_id = 1e9;
+public:
+    int Tasks_n_o;
+    list<string> Tasks;
+    User(int id);
+    list<string>& add_Task(string &task);
+    list<string>& finish(int Task_n_o);
+    const list<string>& Display() const;
+};
+User::User(int id) : user_id(id), Tasks_n_o(0) {}
+list<string> User :: add_Task(string &task)
+{
+    Tasks.push_back(task);
+    tasks_n_o++;
+    return Tasks;
+}
+list<string> User :: finish(int Task_n_o)
+{
+    if (Task_n_o <= 0 || Task_n_o > Tasks_n_o)
+    {
+        std::cerr << "Invalid Task Number" << endl;
+        return Tasks;
+    }
+    auto it = Tasks.begin();
+    advance(it, task_n_o - 1);
+    tasks.erase(it);
+    Tasks_n_o--;
+    return Tasks;
+}
+const list<string>& User :: Display() const {
+    int task_number = 1;
+    for (const auto& taski : Tasks)
+    {
+        cout << task_number++ << " : " << task << endl;
+    }
+    return task;
+}
 int main()
 {
-    std::cout << "Welcome To To-Do Application\n";
+    User user(1);
+    int choice = 1e9;
+    do {
+        cout << "1. Add Task \t 2. Finish Task \n 3. Display Tasks \t 4. Exit \n ENTER YOUR CHOICE : ";
+        cin>>choice;
+        switch (choice) {
+        case 1:
+        {
+            string task;
+            cout << "Enter the Task : ";
+            cin.ignore();
+            getline(cin, task);
+            user.add_Task(task);
+            break;
+        }
+        case 2:
+        {
+            int task_number = 1e9;
+            cout << "Enter the task number to finish : ";
+            cin >> task_number;
+            user.finish(task_number);
+            break;
+        }
+        case 3:
+        {
+            user.Display();
+            break;
+        }
+        case 4:
+        {
+            cout << "Exiting.....\n";
+        }
+        default:
+            cout << "Invalid Choice. Please try again. \n";
+            break;
+        }
+    } while (choice != 4);
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
