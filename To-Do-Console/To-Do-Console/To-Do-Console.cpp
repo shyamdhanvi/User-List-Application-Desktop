@@ -5,20 +5,21 @@
 #include <list>
 #include <algorithm>
 #include <string>
+#include <iomanip>
 using namespace std;
 class User{
 private: 
-    int user_id = 1e9;
+    int user_id;
 public:
     int Tasks_n_o;
     list<string> Tasks;
     User(int id);
-    list<string>& add_Task(string &task);
+    list<string>& add_Task(const string &task);
     list<string>& finish(int Task_n_o);
     const list<string>& Display() const;
 };
 User::User(int id) : user_id(id), Tasks_n_o(0) {}
-list<string> User :: add_Task(string &task)
+list<string> User::add_Task(const string &task)
 {
     Tasks.push_back(task);
     tasks_n_o++;
@@ -31,26 +32,52 @@ list<string> User :: finish(int Task_n_o)
         std::cerr << "Invalid Task Number" << endl;
         return Tasks;
     }
-    auto it = Tasks.begin();
-    advance(it, task_n_o - 1);
-    tasks.erase(it);
-    Tasks_n_o--;
+    else
+    {
+        auto it = Tasks.begin();
+        advance(it, task_n_o - 1);
+        tasks.erase(it);
+        Tasks_n_o--;
+    }
     return Tasks;
 }
 const list<string>& User :: Display() const {
+    if (Tasks.empty())
+    {
+        cout << "No task to display." << endl;
+        return Tasks;
+    }
     int task_number = 1;
+    cout << "+---------------+-------------------------------------------+" << endl;
+    cout << "| Task No.      |  Task Description                         |" << endl;
+    cout << "+---------------+-------------------------------------------+" << endl;
     for (const auto& taski : Tasks)
     {
-        cout << task_number++ << " : " << task << endl;
+    cout << "| "<<task_number++<< "            |" << task << "                        |" << endl;
     }
-    return task;
+    cout << "+---------------+-------------------------------------------+" << endl;
+    return Tasks;
 }
 int main()
 {
     User user(1);
     int choice = 1e9;
     do {
-        cout << "1. Add Task \t 2. Finish Task \n 3. Display Tasks \t 4. Exit \n ENTER YOUR CHOICE : ";
+        cout << "+-------------------------------------------+" << endl;
+ 
+        cout << "| Option No.   |   Option Description       |" << endl;
+        
+        cout << "+--------------+----------------------------+" << endl;
+        
+        cout << "| 1            |   Add Task                 |" << endl;
+
+        cout << "| 2            |   Finish Task              |" << endl;
+
+        cout << "| 3            |   Display Task             |" << endl;
+
+        cout << "| 4            |   Exit                     |" << endl;
+
+        cout << "+--------------+----------------------------+" << endl;
         cin>>choice;
         switch (choice) {
         case 1:
