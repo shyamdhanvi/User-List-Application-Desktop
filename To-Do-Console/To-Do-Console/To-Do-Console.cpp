@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <list>
-#include <algorithm>
 #include <string>
 #include <iomanip>
 using namespace std;
@@ -19,13 +18,13 @@ public:
     const list<string>& Display() const;
 };
 User::User(int id) : user_id(id), Tasks_n_o(0) {}
-list<string> User::add_Task(const string &task)
+list<string>& User::add_Task(const string &task)
 {
     Tasks.push_back(task);
-    tasks_n_o++;
+    Tasks_n_o++;
     return Tasks;
 }
-list<string> User :: finish(int Task_n_o)
+list<string>& User :: finish(int Task_n_o)
 {
     if (Task_n_o <= 0 || Task_n_o > Tasks_n_o)
     {
@@ -35,8 +34,8 @@ list<string> User :: finish(int Task_n_o)
     else
     {
         auto it = Tasks.begin();
-        advance(it, task_n_o - 1);
-        tasks.erase(it);
+        advance(it, Task_n_o - 1);
+        Tasks.erase(it);
         Tasks_n_o--;
     }
     return Tasks;
@@ -49,11 +48,11 @@ const list<string>& User :: Display() const {
     }
     int task_number = 1;
     cout << "+---------------+-------------------------------------------+" << endl;
-    cout << "| Task No.      |  Task Description                         |" << endl;
+    cout << "| Task No.      | Task Description                          |" << endl;
     cout << "+---------------+-------------------------------------------+" << endl;
     for (const auto& taski : Tasks)
     {
-    cout << "| "<<task_number++<< "            |" << task << "                        |" << endl;
+    cout << "| "<< setw(13) << task_number++ << " | " << setw(41) << taski << " |" << endl;
     }
     cout << "+---------------+-------------------------------------------+" << endl;
     return Tasks;
@@ -61,23 +60,17 @@ const list<string>& User :: Display() const {
 int main()
 {
     User user(1);
-    int choice = 1e9;
+    int choice;
     do {
-        cout << "+-------------------------------------------+" << endl;
- 
-        cout << "| Option No.   |   Option Description       |" << endl;
-        
         cout << "+--------------+----------------------------+" << endl;
-        
-        cout << "| 1            |   Add Task                 |" << endl;
-
-        cout << "| 2            |   Finish Task              |" << endl;
-
-        cout << "| 3            |   Display Task             |" << endl;
-
-        cout << "| 4            |   Exit                     |" << endl;
-
+        cout << "| Option No.   | Option Description         |" << endl;
         cout << "+--------------+----------------------------+" << endl;
+        cout << "| 1            | Add Task                   |" << endl;
+        cout << "| 2            | Finish Task                |" << endl;
+        cout << "| 3            | Display Tasks              |" << endl;
+        cout << "| 4            | Exit                       |" << endl;
+        cout << "+--------------+----------------------------+" << endl;
+        cout << "Enter Your Choice : ";
         cin>>choice;
         switch (choice) {
         case 1:
@@ -91,7 +84,7 @@ int main()
         }
         case 2:
         {
-            int task_number = 1e9;
+            int task_number;
             cout << "Enter the task number to finish : ";
             cin >> task_number;
             user.finish(task_number);
@@ -113,7 +106,6 @@ int main()
     } while (choice != 4);
     return 0;
 }
-
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
 // Tips for Getting Started:
