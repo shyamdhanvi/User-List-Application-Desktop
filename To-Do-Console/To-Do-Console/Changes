@@ -1,0 +1,52 @@
+
+const list<string>& User :: Display() const {
+    if (Tasks.empty())
+    {
+        cout << "No task to display." << endl;
+        return Tasks;
+    }
+    int task_number = 1;
+    cout << "+---------------+-------------------------------------------+" << endl;
+    cout << "| Task No.      | Task Description                          |" << endl;
+    cout << "+---------------+-------------------------------------------+" << endl;
+    for (const auto& taski : Tasks)
+    {
+    cout << "| "<< setw(13) << task_number++ << " | " << setw(41) << taski << " |" << endl;
+    }
+    cout << "+---------------+-------------------------------------------+" << endl;
+    return Tasks;
+}
+
+list<string>& User :: finish(int Task_n_o)
+{
+    if (Task_n_o <= 0 || Task_n_o > Tasks_n_o)
+    {
+        std::cerr << "Invalid Task Number" << endl;
+        return Tasks;
+    }
+    else
+    {
+        auto it = Tasks.begin();
+        advance(it, Task_n_o - 1);
+        Tasks.erase(it);
+        Tasks_n_o--;
+    }
+    return Tasks;
+}
+        cout << "+--------------+----------------------------+" << endl;
+        cout << "| Option No.   | Option Description         |" << endl;
+        cout << "+--------------+----------------------------+" << endl;
+        cout << "| 1            | Add Task                   |" << endl;
+        cout << "| 2            | Finish Task                |" << endl;
+        cout << "| 3            | Display Tasks              |" << endl;
+        cout << "| 4            | Exit                       |" << endl;
+        cout << "+--------------+----------------------------+" << endl;
+        cout << "Enter Your Choice : ";
+
+User::User(int id) : user_id(id), Tasks_n_o(0) {}
+list<string>& User::add_Task(const string &task)
+{
+    Tasks.push_back(task);
+    Tasks_n_o++;
+    return Tasks;
+}
