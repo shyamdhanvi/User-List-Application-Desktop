@@ -2,10 +2,15 @@
 //
 
 #include <iostream>
-#include <list>
-#include <string>
 #include <iomanip>
-#include<chrono>
+#include <chrono>
+/*#include "Credential.h"
+#include "UserName.h"
+#include "UserPassword.h"*/
+#include "HeaderFiles/Credential.h"
+#include "HeaderFiles/UserData.h"
+#include "HeaderFiles/Hide.h"
+
 using namespace std;
 
 class Task {
@@ -138,6 +143,12 @@ int Menu::display_Choice() {
 }
 int main()
 {
+    UserData userdata;
+    userdata.setUserData();
+    Hide hide;
+    string encripted = hide.encript();
+    string decripted = hide.decript();
+    cout << encripted << endl;
     Menu menu(1);
     menu.display_Choice();
     return 0;
